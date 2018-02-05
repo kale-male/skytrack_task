@@ -1,0 +1,9 @@
+FLASK_DEBUG=1
+POSTGRES_URL=postgres:5435
+POSTGRES_USER=skytrack
+POSTGRES_PW=skytrack
+POSTGRES_DB=arithmetic
+DB_URL=postgresql://skytrack:skytrack@postgres:5432/arithmetic
+CELERY_BROKER_URL=redis://redis:6379
+CELERY_RESULT_BACKEND=redis://redis:6379
+CELERY_TASK_ALWAYS_EAGER=1

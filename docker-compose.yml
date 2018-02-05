@@ -1,0 +1,59 @@
+version: '2'
+services:
+  # POSTGRES
+  postgres:
+    restart: always
+    image: postgres:9.6.2-alpine
+    #image: postgres:latest
+    #build: ../db
+    volumes:
+      - "../../db/postgres/db:/data/db"
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: skytrack
+      POSTGRES_PASSWORD: skytrack
+      POSTGRES_DB: arithmetic
+
+
+  # APP
+  web:
+    build: ./web
+    restart: always
+    container_name: sky-api
+    ports:
+     - "5000:5000"
+    volumes:
+     - ./web:/app
+    env_file:
+        - ./.environment
+    links:
+      - "postgres:postgres"
+    command: /usr/local/bin/python app.py
+
+
+  # REDIS
+  redis:
+    image: 'redis:3.0-alpine'
+    volumes:
+      - 'redis:/data'
+    ports:
+      - '6379:6379'
+
+
+  # CELERY
+  worker:
+    build: ./web
+    container_name: worker
+    env_file:
+        - ./.environment
+    command: celery worker -l info -A tasks.celery
+    links:
+      - "redis:redis"
+    volumes:
+     - ./web:/app
+    depends_on:
+      - redis
+
+volumes:
+  redis:

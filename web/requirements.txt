@@ -1,0 +1,8 @@
+Flask==0.10.1
+Flask-SQLAlchemy
+sqlalchemy_utils
+Flask-Migrate
+psycopg2
+covador
+redis
+celery
