@@ -1,0 +1,143 @@
+swagger: "2.0"
+info:
+  description: "Flask/celery arithmetics"
+  version: "1.0.0"
+  title: "Skytrack-test"
+  contact:
+    email: "e.khripunova@gmail.com"
+tags:
+- name: "arithmetics"
+  description: "Perform Arithmetic operations"
+- name: "statistics"
+  description: "Get call statistics"
+schemes:
+- "http"
+paths:
+  /add:
+    post:
+      tags:
+      - "arithmetics"
+      summary: "add numbers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "numbers"
+        required: true
+        schema:
+          $ref: "#/definitions/Numbers"
+      responses:
+        200:
+          description: "operation performed"
+          schema:
+            $ref: "#/definitions/OpResult"
+        500:
+          description: "Something get wrong"
+  /mul:
+    post:
+      tags:
+      - "arithmetics"
+      summary: "multiply numbers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "numbers"
+        required: true
+        schema:
+          $ref: "#/definitions/Numbers"
+      responses:
+        200:
+          description: "operation performed"
+          schema:
+            $ref: "#/definitions/OpResult"
+        500:
+          description: "Something get wrong"
+  /truediv:
+    post:
+      tags:
+      - "arithmetics"
+      summary: "divide numbers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "numbers"
+        required: true
+        schema:
+          $ref: "#/definitions/Numbers"
+      responses:
+        200:
+          description: "operation performed"
+          schema:
+            $ref: "#/definitions/OpResult"
+        500:
+          description: "Something get wrong"
+  /pow:
+    post:
+      tags:
+      - "arithmetics"
+      summary: "raise to power"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "numbers"
+        required: true
+        schema:
+          $ref: "#/definitions/Numbers"
+      responses:
+        200:
+          description: "operation performed"
+          schema:
+            $ref: "#/definitions/OpResult"
+        500:
+          description: "Something get wrong"
+  /stats:
+    get:
+      tags:
+      - "statistics"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "statistics for operations"
+          schema:
+            $ref: "#/definitions/Stats"
+        500:
+          description: "Something get wrong"
+
+definitions:
+  Numbers:
+    type: "object"
+    properties:
+      a:
+        type: "number"
+        format: "float"
+      b:
+        type: "number"
+        format: "float"
+  OpResult:
+    type: "number"
+    format: "float"
+  Stats:
+    type: "object"
+    additionalProperties:
+      type: "integer"
+      format: "int32"
+  
+  
